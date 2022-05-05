@@ -71,7 +71,7 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineMode: 1
     - _Parallax: 0.02
-    - _Shadow: 0.134
+    - _Shadow: 0.04
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1

@@ -9,6 +9,8 @@ TagManager:
   - w_shoe
   - w2_show
   - b_buy
+  - w_playera1
+  - b_joy
   layers:
   - Default
   - TransparentFX
@@ -16,9 +18,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Playera
+  - Suelo
+  - Player
   - 
   - 
   - 

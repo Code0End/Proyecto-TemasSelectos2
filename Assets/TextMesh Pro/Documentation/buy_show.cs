@@ -8,43 +8,42 @@ public class buy_show : MonoBehaviour
 
     public GameObject shoe1;
     public GameObject shoe2;
-    public GameObject[] shoes;
-    public GameObject[] shoes2;
+    
+    public GameObject player;
+  
+
+    public bool target = false;
+    public string url;
+   
+
+    public Texture shirt_mat; 
 
     private void Start()
     {
-
-     
-
-
+        shoe1.SetActive(false);
+        
     }
 
-    public void Showshoe()
+    public void gopage()
     {
-        shoes = GameObject.FindGameObjectsWithTag("w_shoe");
-        shoes2 = GameObject.FindGameObjectsWithTag("w2_show");
-
-        foreach (GameObject shoe in shoes)
-        {
-
-            shoe1 = shoe;
-            
-        }
-        foreach (GameObject shoe in shoes2)
-        {
-
-            shoe2 = shoe;
-         
-        }
-
-        shoe1.SetActive(true);
-       
-     
-        shoe2.SetActive(true);
-     
-
+        Application.OpenURL(url); 
     }
 
+    public void updateurl(string nu, Texture nm)
+    {
+        url = nu;
+        shirt_mat = nm;
+    }
     
+
+    public void Showshoetarget()
+    {
+        if (shoe1.active == false)
+        {
+            shoe1.SetActive(true);
+            shoe1.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = shirt_mat;
+        }
+        shoe1.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = shirt_mat;
+    }
 
 }

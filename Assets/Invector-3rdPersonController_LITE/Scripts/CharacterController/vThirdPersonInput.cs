@@ -45,8 +45,9 @@ namespace Invector.vCharacterController
         public KeyCode mouseclick = KeyCode.Mouse0;
         public bool close = false;
         public Camera camera1;
-        public Camera camera2;
-        public Camera camera3;
+        public bool lnk = false;
+        public string url;
+        public Camera currcam;
         public Joystick joy;
         Camera activecam;
         public GameObject shoe;
@@ -59,13 +60,22 @@ namespace Invector.vCharacterController
         bool m = true;
         bool s = true;
         GameObject[] s_l;
+
         GameObject b_buy;
+
         public int lu = 0;
+        public bool shirton = false;
+
+        public buy_show botonurl;
+        public buy_show botonurl2;
+        public image_holder camiseta_show;
+
+        public Texture design;
 
         public GameObject shoe1;
         public GameObject shoe2;
         public GameObject[] shoes;
-        public GameObject[] shoes2;
+
 
         [Header("Camera Input")]
         public string rotateCameraXInput = "Mouse X";
@@ -82,41 +92,17 @@ namespace Invector.vCharacterController
             InitilizeController();
             InitializeTpCamera();
             camera1.gameObject.SetActive(true);
-            camera2.gameObject.SetActive(false);
-            camera3.gameObject.SetActive(false);
             script = shoe.GetComponent<turn>();
             script2 = shoe.GetComponent<inspect>();
             script3 = shoe22.GetComponent<turn>();
             script4 = shoe22.GetComponent<inspect>();
             activecam = camera1;
-            s_l = GameObject.FindGameObjectsWithTag("b_buy");
-
-            foreach (GameObject shoe in s_l) {
-                b_buy = shoe;
-            }
-            b_buy.SetActive(false);
-
-
-
-
+            
+            turnoffui();
+                                          
             if (isMobile() == false)
             {
-                m = false; ;
-            }
-
-            shoes = GameObject.FindGameObjectsWithTag("w_shoe");
-            shoes2 = GameObject.FindGameObjectsWithTag("w2_show");
-            foreach (GameObject shoe in shoes)
-            {
-
-                shoe1 = shoe;
-                shoe.SetActive(false);
-            }
-            foreach (GameObject shoe in shoes2)
-            {
-
-                shoe2 = shoe;
-                shoe.SetActive(false);
+                m = false;
             }
         }
 
@@ -131,7 +117,7 @@ namespace Invector.vCharacterController
         {
             InputHandle();                  // update the input methods
             cc.UpdateAnimator();
-            
+
         }
 
         public virtual void OnAnimatorMove()
@@ -192,10 +178,10 @@ namespace Invector.vCharacterController
             }
             else
             {
-                cc.input.x = Input.GetAxis(horizontalInput)- Input.GetAxis(horizontalInput);
-                cc.input.z = Input.GetAxis(verticallInput)- Input.GetAxis(verticallInput);
-                cc.input.x = joy.Horizontal- joy.Horizontal;
-                cc.input.z = joy.Vertical- joy.Vertical;
+                cc.input.x = Input.GetAxis(horizontalInput) - Input.GetAxis(horizontalInput);
+                cc.input.z = Input.GetAxis(verticallInput) - Input.GetAxis(verticallInput);
+                cc.input.x = joy.Horizontal - joy.Horizontal;
+                cc.input.z = joy.Vertical - joy.Vertical;
             }
         }
 
@@ -204,29 +190,23 @@ namespace Invector.vCharacterController
             if (Input.GetKeyDown(interactInput))
             {
                 if (close == true) {
-                    if (camera1.gameObject.active)
+                    if (lnk != true)
                     {
-                        s = false;
-                        camera1.gameObject.SetActive(false);
-                        if (lu == 1)
+                        if (camera1.gameObject.active)
                         {
-                            camera2.gameObject.SetActive(true);
-                            b_buy.SetActive(true);
+                            s = false;
+                            camera1.gameObject.SetActive(false);
+                            currcam.gameObject.SetActive(true);
+                            turnonui();
                         }
-                        if(lu == 2)
+                        else
                         {
-                            camera3.gameObject.SetActive(true);
+                            camera1.gameObject.SetActive(true);
+                            currcam.gameObject.SetActive(false);
+                            s = true;
+                            turnoffui();
                         }
-                        ;
-                    }
-                    else
-                    {
-                        camera1.gameObject.SetActive(true);
-                        camera2.gameObject.SetActive(false);
-                        camera3.gameObject.SetActive(false);
-                        s = true;
-                        b_buy.SetActive(false);
-                    }
+                    
                     //Debug.Log("Chingue su madre el pechugas");
 
 
@@ -249,14 +229,19 @@ namespace Invector.vCharacterController
 
 
                     }
+                    }
+                    else
+                    {
+                        Application.OpenURL(url);
+                    }
                 }
             }
-                //Debug.Log("Chingue su madre el pechugas");
+            //Debug.Log("Chingue su madre el pechugas");
         }
 
         protected virtual void mouseclick2()
         {
-            if (DoubleClick()==true)
+            if (DoubleClick() == true)
             {
                 if (close == true)
                 {
@@ -269,55 +254,53 @@ namespace Invector.vCharacterController
                         {
                             var selection = hit.transform;
                             if (selection.CompareTag(selectableTag)) {
-                                if (camera1.gameObject.active)
+                                if (lnk != true)
                                 {
-                                    camera1.gameObject.SetActive(false);
-                                    s = false;
-                                    if (lu == 1)
+                                    if (camera1.gameObject.active)
                                     {
-                                        camera2.gameObject.SetActive(true);
-                                        activecam = camera2;
-                                        b_buy.SetActive(true);
+                                        activecam = currcam;
+                                        s = false;
+                                        camera1.gameObject.SetActive(false);
+                                        currcam.gameObject.SetActive(true);
+                                        turnonui();
                                     }
-                                    if (lu == 2)
+
+                                    else
                                     {
-                                        camera3.gameObject.SetActive(true);
-                                        activecam = camera3;
-                                    } 
-                                }
+                                        camera1.gameObject.SetActive(true);
+                                        currcam.gameObject.SetActive(false);
+                                        activecam = camera1;
+                                        s = true;
+                                        turnoffui();
+                                    }
+                                    //Debug.Log("Chingue su madre el pechugas");
 
+
+                                    if (script.on == true)
+                                    {
+                                        script.on = false;
+                                        script2.inspectmode = true;
+                                        script3.on = false;
+                                        script4.inspectmode = true;
+
+                                    }
+                                    else
+                                    {
+                                        script.on = true;
+                                        script2.inspectmode = false;
+                                        script.reset = true;
+                                        script4.inspectmode = false;
+                                        script3.reset = true;
+                                        script3.on = true;
+
+
+                                    }
+                                }
                                 else
                                 {
-                                    camera1.gameObject.SetActive(true);
-                                    camera2.gameObject.SetActive(false);
-                                    camera3.gameObject.SetActive(false);
-                                    activecam = camera1;
-                                    s = true;
-                                    b_buy.SetActive(false);
+                                    Application.OpenURL(url);
                                 }
-                                //Debug.Log("Chingue su madre el pechugas");
-
-
-                                if (script.on == true)
-                                {
-                                    script.on = false;
-                                    script2.inspectmode = true;
-                                    script3.on = false;
-                                    script4.inspectmode = true;
-
                                 }
-                                else
-                                {
-                                    script.on = true;
-                                    script2.inspectmode = false;
-                                    script.reset = true;
-                                    script4.inspectmode = false;
-                                    script3.reset = true;
-                                    script3.on = true;
-
-
-                                }
-                            }
                         }
                     }
                 }
@@ -364,25 +347,51 @@ namespace Invector.vCharacterController
                 cc.Sprint(false);
         }
 
-        /// <summary>
-        /// Conditions to trigger the Jump animation & behavior
-        /// </summary>
-        /// <returns></returns>
         protected virtual bool JumpConditions()
         {
             return cc.isGrounded && cc.GroundAngle() < cc.slopeLimit && !cc.isJumping && !cc.stopMove;
         }
 
-        /// <summary>
-        /// Input to trigger the Jump 
-        /// </summary>
         protected virtual void JumpInput()
         {
             if (Input.GetKeyDown(jumpInput) && JumpConditions())
                 cc.Jump();
         }
 
+        public void updatecam(Camera nc){
+            currcam = nc;
+        }
+        public void updatestand(Sprite titulo,Sprite descripcion,Sprite playera1,Sprite playera2)
+        {
+            camiseta_show.setsprites(titulo,descripcion,playera1,playera2);
+        }
+        public void updateurl(string nc, Texture design2)
+        {
+            design = design2;
+            url = nc;
+            botonurl.updateurl(url,design);
+            botonurl2.updateurl(url, design);
+        }
 
+        public void turnoffui()
+        {
+            s_l = GameObject.FindGameObjectsWithTag("b_buy");
+
+            foreach (GameObject shoe in s_l)
+            {
+                b_buy = shoe;
+                b_buy.SetActive(false);
+            }
+        }
+
+        public void turnonui()
+        {
+            foreach (GameObject shoe in s_l)
+            {
+                b_buy = shoe;
+                b_buy.SetActive(true);
+            }
+        }
 
         [DllImport("__Internal")]
         private static extern bool IsMobile();
