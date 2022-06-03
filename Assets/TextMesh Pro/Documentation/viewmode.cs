@@ -25,6 +25,10 @@ namespace Invector.vCharacterController
         public string url;
         public bool u;
 
+        public bool shorts = false;
+        public bool shoestwice = false;
+        public bool floaty = false;
+
         
 
 
@@ -42,6 +46,10 @@ namespace Invector.vCharacterController
                 {
                     script.lnk = true;
                 }
+                script.updateshortss(shorts);
+                script.updateshoess(shoestwice);
+                script.updatefloatys(floaty);
+
             }
         }
 
@@ -49,6 +57,9 @@ namespace Invector.vCharacterController
         {
             script.close = false;
             script.lnk = false;
+            script.updateshoess(shoestwice);
+            script.updateshortss(shorts);
+            script.updatefloatys(floaty);
         }
 
     }

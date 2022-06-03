@@ -6,15 +6,13 @@ using UnityEngine.Video;
 public class videop : MonoBehaviour
 {
     public VideoPlayer vp;
+    public string vid = "";
     void Start()
     {
-        vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "from_trash.mp4");
+        vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, vid);
         vp.Play();
     }
 
 
-    void Update()
-    {
-        
-    }
+    
 }

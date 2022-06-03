@@ -52,13 +52,29 @@ namespace Invector.vCharacterController
         Camera activecam;
         public GameObject shoe;
         public GameObject shoe22;
+        public GameObject shoe33;
+        public GameObject shoe44;
+        public GameObject shoe55;
+        public GameObject shoe66;
         public turn script;
         public inspect script2;
         public turn script3;
         public inspect script4;
+        public turn script5;
+        public inspect script6;
+        public turn script7;
+        public inspect script8;
+        public turn script9;
+        public inspect script10;
+        public turn script11;
+        public inspect script12;
+
         string selectableTag = "shoeable";
         bool m = true;
         bool s = true;
+        bool shorts = false;
+        bool shos = false;
+        bool flots = false;
         GameObject[] s_l;
 
         GameObject b_buy;
@@ -96,6 +112,14 @@ namespace Invector.vCharacterController
             script2 = shoe.GetComponent<inspect>();
             script3 = shoe22.GetComponent<turn>();
             script4 = shoe22.GetComponent<inspect>();
+            script5 = shoe33.GetComponent<turn>();
+            script6 = shoe33.GetComponent<inspect>();
+            script7 = shoe44.GetComponent<turn>();
+            script8 = shoe44.GetComponent<inspect>();
+            script9 = shoe55.GetComponent<turn>();
+            script10 = shoe55.GetComponent<inspect>();
+            script11 = shoe66.GetComponent<turn>();
+            script12 = shoe66.GetComponent<inspect>();
             activecam = camera1;
             
             turnoffui();
@@ -207,17 +231,22 @@ namespace Invector.vCharacterController
                             turnoffui();
                         }
                     
-                    //Debug.Log("Chingue su madre el pechugas");
-
-
                     if (script.on == true)
                     {
                         script.on = false;
                         script2.inspectmode = true;
                         script3.on = false;
                         script4.inspectmode = true;
+                        script5.on = false;
+                        script6.inspectmode = true;
+                        script7.on = false;
+                        script8.inspectmode = true;
+                        script9.on = false;
+                        script10.inspectmode = true;
+                        script11.on = false;
+                        script12.inspectmode = true;
 
-                    }
+                        }
                     else
                     {
                         script.on = true;
@@ -226,9 +255,19 @@ namespace Invector.vCharacterController
                         script4.inspectmode = false;
                         script3.reset = true;
                         script3.on = true;
-
-
-                    }
+                        script6.inspectmode = false;
+                        script5.reset = true;
+                        script5.on = true;
+                        script8.inspectmode = false;
+                        script7.reset = true;
+                        script7.on = true;
+                        script10.inspectmode = false;
+                        script9.reset = true;
+                        script9.on = true;
+                        script12.inspectmode = false;
+                        script11.reset = true;
+                        script11.on = true;
+                        }
                     }
                     else
                     {
@@ -236,7 +275,6 @@ namespace Invector.vCharacterController
                     }
                 }
             }
-            //Debug.Log("Chingue su madre el pechugas");
         }
 
         protected virtual void mouseclick2()
@@ -273,15 +311,19 @@ namespace Invector.vCharacterController
                                         s = true;
                                         turnoffui();
                                     }
-                                    //Debug.Log("Chingue su madre el pechugas");
-
-
+                                                                                                           
                                     if (script.on == true)
                                     {
                                         script.on = false;
                                         script2.inspectmode = true;
                                         script3.on = false;
                                         script4.inspectmode = true;
+                                        script5.on = false;
+                                        script6.inspectmode = true;
+                                        script7.on = false;
+                                        script8.inspectmode = true;
+                                        script9.on = false;
+                                        script10.inspectmode = true;
 
                                     }
                                     else
@@ -292,7 +334,15 @@ namespace Invector.vCharacterController
                                         script4.inspectmode = false;
                                         script3.reset = true;
                                         script3.on = true;
-
+                                        script6.inspectmode = false;
+                                        script5.reset = true;
+                                        script5.on = true;
+                                        script8.inspectmode = false;
+                                        script7.reset = true;
+                                        script7.on = true;
+                                        script10.inspectmode = false;
+                                        script9.reset = true;
+                                        script9.on = true;
 
                                     }
                                 }
@@ -371,6 +421,24 @@ namespace Invector.vCharacterController
             url = nc;
             botonurl.updateurl(url,design);
             botonurl2.updateurl(url, design);
+        }
+
+        public void updateshortss(bool nc)
+        {
+            shorts = nc;
+            botonurl2.updateshorts(shorts);
+        }
+
+        public void updateshoess(bool nc)
+        {
+            shos = nc;
+            botonurl2.updateshoes(shos);
+        }
+
+        public void updatefloatys(bool nc)
+        {
+            flots = nc;
+            botonurl2.updatefloaty(flots);
         }
 
         public void turnoffui()
