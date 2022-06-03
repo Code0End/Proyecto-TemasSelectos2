@@ -12,10 +12,14 @@ public class buy_show : MonoBehaviour
     public GameObject shoe4;
 
     public GameObject player;
+
+    public GameObject clone1;
   
     public bool shorts = false;
     public bool shoestwice = false;
     public bool floaty = false;
+
+    bool floaty2;
 
     public GameObject pos;
 
@@ -30,7 +34,8 @@ public class buy_show : MonoBehaviour
     private void Start()
     {
         shoe1.SetActive(false);
-        
+        flo = Resources.Load("flotadorsim");
+        floaty2 = false;
     }
 
     public void gopage()
@@ -71,9 +76,18 @@ public class buy_show : MonoBehaviour
 
         if (floaty == true)
         {
-            flo = Resources.Load("flotadorsim");
-            GameObject clone1 = (GameObject)Instantiate(flo);
-            clone1.transform.position = pos.transform.position;
+            if (floaty2 == false)
+            {
+                clone1 = (GameObject)Instantiate(flo);
+                clone1.transform.position = pos.transform.position;
+                floaty2 = true;
+            }
+            if (floaty2 == true)
+            {
+                clone1.active = false;
+                clone1.transform.position = pos.transform.position;
+                clone1.active = true;
+            }
             return;
         }
 
